@@ -1,0 +1,118 @@
+//Written by Imran Ali
+//6/4/2022
+
+
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+
+namespace Practice
+{
+    internal class Program
+    {
+        public class game
+        {
+            private int manticore;
+            private int round;
+            private int damage;
+            private int distance;
+            private int guess;
+
+
+
+            public int Manticore
+            {
+                get { return manticore;}
+                set { manticore = value;}
+            }
+            
+            public int Round
+            {
+                get { return round; }
+                set { round = value; }
+            }
+            public int Damage
+            {
+                get { return damage; }
+                set { damage = value; }
+            }
+            public int Distance
+            {
+                get { return distance; }
+                set { distance = value; }
+            }
+            public int Guess
+            {
+                get { return guess; }
+                set { guess = value; }
+            }
+
+            public game()
+            {
+                manticore = 10;
+                round = 1;
+                damage = 1;
+                distance = 74;
+                guess = 50;
+            }
+            public void begin()
+            {
+                Console.WriteLine("Player 1, how far away from the city do you want to station the Manticore:");
+                distance = Convert.ToInt32(Console.ReadLine());
+                Console.Clear();
+            }
+
+            public void Rules()
+            {
+                
+                int city = 15;
+                while (manticore > 0)
+                {
+                    Console.WriteLine("Status: Round {0} City: {1}/15 Manticore: {2}/10", round, city, manticore);
+                    Console.WriteLine("The cannon is expected to deal {0} damage this round", damage);
+                    Console.Write("Enter desired cannon range: ");
+                    guess = Convert.ToInt32(Console.ReadLine());
+                    if (guess > distance)
+                        Console.WriteLine("This round OVERSHOT the target");
+                    else if (guess < distance)
+                        Console.WriteLine("This round FELL SHORT of the target.");
+                    else
+                        Console.WriteLine("This round was a DIRECT HIT!");
+                    Console.WriteLine("--------------------------------------------\n");
+
+                    if (guess == distance)
+                        manticore -= damage;
+                    round += 1;
+                    city -= 1;
+                    if (round % 3 == 0 && round % 5 == 0)
+                        damage = 10;
+                    else if (round % 3 == 0 | round % 5 == 0)
+                        damage = 3;
+                    else
+                        damage = 1;
+
+                }
+                    
+                Console.WriteLine("The Manticore has been destroyed.");
+            }
+
+
+        }
+        static void Main(string[] args)
+        {
+            Console.ForegroundColor = ConsoleColor.Cyan;
+            game game1 = new game();
+            game1.begin();
+            game1.Rules();
+
+
+
+
+        }
+    }   
+
+}
+
+
